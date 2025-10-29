@@ -1,0 +1,114 @@
+=========================================
+QUICK START GUIDE - Resume Sync (macOS)
+=========================================
+
+Based on your folder structure at:
+/Users/niketjain/Documents/Resume/Tech/files/
+
+STEP 1: Install Dependencies
+-----------------------------
+Open Terminal and run:
+
+cd /Users/niketjain/Documents/Resume/Tech/files/
+chmod +x setup_macos.sh
+./setup_macos.sh
+
+This will install:
+- python-docx (for working with Word files)
+- watchdog (for auto-sync mode)
+- Check/install LibreOffice (for PDF conversion)
+
+
+STEP 2: Choose Your Mode
+-------------------------
+
+MODE A: Manual Sync (sync once after editing)
+----------------------------------------------
+cd /Users/niketjain/Documents/Resume/Tech/files/
+python3 sync_resumes.py /Users/niketjain/Documents/Resume/Tech
+
+This will:
+1. Find the most recently edited resume
+2. Update all other resumes with same content
+3. Keep each resume's unique email
+4. Convert all to PDF
+
+
+MODE B: Auto-Watch (syncs automatically whenever you save)
+-----------------------------------------------------------
+cd /Users/niketjain/Documents/Resume/Tech/files/
+python3 watch_resumes.py /Users/niketjain/Documents/Resume/Tech
+
+This will:
+1. Monitor all your resume folders continuously
+2. Automatically sync when you save any resume
+3. Press Ctrl+C to stop
+
+
+YOUR FOLDER STRUCTURE
+---------------------
+Based on the screenshot, you have folders like:
+- andrew_email/
+- cs_email/
+- personal_email_1301/
+- personal_email_a4/
+- personal_email_app/
+
+The script will automatically find ALL .docx files in these folders
+and their subfolders!
+
+
+TYPICAL WORKFLOW
+----------------
+1. Start auto-watch:
+   python3 watch_resumes.py /Users/niketjain/Documents/Resume/Tech
+
+2. Open ANY resume (in any folder) in Word/Pages
+
+3. Make your changes
+
+4. Save the file
+
+5. Watch the script automatically:
+   - Detect the change
+   - Update all other resumes
+   - Keep unique emails
+   - Generate PDFs
+
+6. Done! All resumes are synced.
+
+
+TROUBLESHOOTING
+---------------
+If you get "ModuleNotFoundError: No module named 'docx'":
+  pip3 install --user python-docx
+
+If you get "watchdog not found":
+  pip3 install --user watchdog
+
+If PDF conversion fails:
+  brew install --cask libreoffice
+
+If the script can't find your resumes:
+  Make sure you're pointing to the right directory and
+  that your resumes are .docx files (not .doc)
+
+
+EXAMPLES
+--------
+# Sync from current directory
+python3 sync_resumes.py .
+
+# Sync from specific folder
+python3 sync_resumes.py /Users/niketjain/Documents/Resume/Tech
+
+# Watch from parent folder (includes all subfolders)
+python3 watch_resumes.py /Users/niketjain/Documents/Resume
+
+# Watch from current location
+python3 watch_resumes.py .
+
+
+NEED HELP?
+----------
+Check the full README.md for detailed documentation!
